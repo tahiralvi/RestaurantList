@@ -12,9 +12,17 @@ namespace RestaurantList.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Restaurants.ToListAsync());
+            var restaurants = from r in _context.Restaurants
+                              select r;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                restaurants = restaurants.Where(r =>
+                r.Name.Contains(searchString));
+                return View(await restaurants.ToListAsync());
+            }
+            return View(await restaurants.ToListAsync());
         }
         public async Task<IActionResult> Details(int? id)
         {
