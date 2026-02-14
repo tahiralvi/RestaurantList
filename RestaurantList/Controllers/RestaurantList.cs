@@ -28,14 +28,38 @@ namespace RestaurantList.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             var restaurant = await _context.Restaurants
-            .Include(rd => rd.RestaurantDishes)
-            .ThenInclude(d => d.Dish)
-            .FirstOrDefaultAsync(x => x.Id == id);
+                .Include(rd => rd.RestaurantDishes)
+                .ThenInclude(d => d.Dish)
+                .FirstOrDefaultAsync(x => x.Id == id); // 
+
             if (restaurant == null)
             {
                 return NotFound();
             }
+
+            // Get list of dishes NOT already assigned to this restaurant for the dropdown
+            var assignedDishIds = restaurant.RestaurantDishes.Select(rd => rd.DishId).ToList();
+            ViewBag.AvailableDishes = await _context.Dishes
+                .Where(d => !assignedDishIds.Contains(d.Id))
+                .ToListAsync();
+
             return View(restaurant);
+        }
+
+        // POST: RestaurantList/AddDish
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddDish(int restaurantId, int dishId)
+        {
+            var restaurantDish = new RestaurantDish //
+            {
+                RestaurantId = restaurantId,
+                DishId = dishId
+            };
+
+            _context.RestaurantDishes.Add(restaurantDish); // 
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Details), new { id = restaurantId });
         }
 
         // GET: RestaurantList/Create

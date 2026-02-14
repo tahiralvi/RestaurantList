@@ -1,34 +1,35 @@
 ﻿@model RestaurantList.Models.Restaurant
 
-@{
-    ViewData["Title"] = "Restaurant Details";
-}
-
 <div class="container">
-    <div class="d-flex justify-content-center">
-        <h3>@Model.Name</h3>
-    </div>
-    <div class="d-flex justify-content-center">
-        <img src="@Model.ImageUrl" style="width: 50%" />
-    </div>
-    <div class="d-flex justify-content-center">
-        <h3>@Model.Address</h3>
-    </div>
-    <div class="d-flex justify-content-center">
-        Dishes:
-        <ul>
-            @foreach (var item in Model.RestaurantDishes)
-            {
-                <li>
-                    @item.Dish.Name, @item.Dish.Price.ToString("N2")
-                    Dollars
-                </li>
-            }
-        </ul>
-    </div>
-    <div class="d-flex justify-content-center">
-        <a class="btn btn-info" asp-action="Index">Back to Restaurant List</a>
-    </div>
+    <h1>@Model.Name</h1>
+    <p>@Model.Address</p>
+    <img src="@Model.ImageUrl" style="width: 300px;" class="img-thumbnail mb-3" />
+
+    <h3>Menu</h3>
+    <ul class="list-group mb-4">
+        @foreach (var item in Model.RestaurantDishes)
+        {
+            <li class="list-group-item d-flex justify-content-between">
+                @item.Dish.Name <span>$@item.Dish.Price</span>
+            </li>
+        }
+    </ul>
+
+    <hr />
+    <h4>Add Dish to Menu</h4>
+    <form asp-action="AddDish" method="post" class="row g-3">
+        <input type="hidden" name="restaurantId" value="@Model.Id" />
+        <div class="col-auto">
+            <select name="dishId" class="form-select">
+                <option value="">-- Select a Dish --</option>
+                @foreach (var dish in ViewBag.AvailableDishes)
+                {
+                    <option value="@dish.Id">@dish.Name (@dish.Price)</option>
+                }
+            </select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Add to Restaurant</button>
+        </div>
+    </form>
 </div>
-
-
