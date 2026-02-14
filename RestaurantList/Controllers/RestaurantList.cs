@@ -111,5 +111,40 @@ namespace RestaurantList.Controllers
         {
             return _context.Restaurants.Any(e => e.Id == id);
         }
+
+        // GET: RestaurantList/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            // Find the restaurant to display its details before confirming deletion
+            var restaurant = await _context.Restaurants
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            return View(restaurant);
+        }
+
+        // POST: RestaurantList/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var restaurant = await _context.Restaurants.FindAsync(id);
+            if (restaurant != null)
+            {
+                _context.Restaurants.Remove(restaurant);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
