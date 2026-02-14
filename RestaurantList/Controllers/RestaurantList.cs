@@ -13,6 +13,7 @@ namespace RestaurantList.Controllers
         {
             _context = context;
         }
+
         public async Task<IActionResult> Index(string searchString)
         {
             var restaurants = from r in _context.Restaurants
@@ -25,12 +26,13 @@ namespace RestaurantList.Controllers
             }
             return View(await restaurants.ToListAsync());
         }
+
         public async Task<IActionResult> Details(int? id)
         {
             var restaurant = await _context.Restaurants
                 .Include(rd => rd.RestaurantDishes)
                 .ThenInclude(d => d.Dish)
-                .FirstOrDefaultAsync(x => x.Id == id); // 
+                .FirstOrDefaultAsync(x => x.Id == id); //
 
             if (restaurant == null)
             {
@@ -57,7 +59,7 @@ namespace RestaurantList.Controllers
                 DishId = dishId
             };
 
-            _context.RestaurantDishes.Add(restaurantDish); // 
+            _context.RestaurantDishes.Add(restaurantDish); //
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Details), new { id = restaurantId });
         }
