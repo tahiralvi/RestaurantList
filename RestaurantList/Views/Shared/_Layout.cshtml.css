@@ -46,3 +46,7 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+.dropdown-item:active {
+    background-color: #1b6ec2; /* Matches your .btn-primary background */
+    color: #fff; /* Matches your .btn-primary text color */
+}
