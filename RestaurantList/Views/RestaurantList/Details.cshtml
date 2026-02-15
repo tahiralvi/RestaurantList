@@ -10,7 +10,7 @@
         @foreach (var item in Model.RestaurantDishes)
         {
             <li class="list-group-item d-flex justify-content-between">
-                @item.Dish.Name <span>$@item.Dish.Price</span>
+                @item.Dish.Name <span>$@item.Dish.Price.ToString("C")</span>
             </li>
         }
     </ul>
