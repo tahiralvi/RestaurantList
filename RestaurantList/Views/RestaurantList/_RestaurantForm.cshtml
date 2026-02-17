@@ -1,0 +1,61 @@
+﻿@model RestaurantList.Models.Restaurant
+
+<div class="row g-3">
+    <div class="col-md-12">
+        <label asp-for="Name" class="form-label fw-bold"></label>
+        <input asp-for="Name" class="form-control" placeholder="Enter restaurant name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="CuisineType" class="form-label fw-bold"></label>
+        <select asp-for="CuisineType" class="form-select">
+            <option value="">-- Select Cuisine --</option>
+            <option value="Pakistani">Pakistani</option>
+            <option value="Italian">Italian</option>
+            <option value="Chinese">Chinese</option>
+            <option value="Fast Food">Fast Food</option>
+        </select>
+        <span asp-validation-for="CuisineType" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="PriceRange" class="form-label fw-bold"></label>
+        <select asp-for="PriceRange" class="form-select">
+            <option value="$">Rs (Budget)</option>
+            <option value="$$">RsRs (Mid-Range)</option>
+            <option value="$$$">RsRsRs (Luxury)</option>
+        </select>
+        <span asp-validation-for="PriceRange" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="OpeningTime" class="form-label fw-bold"></label>
+        <input asp-for="OpeningTime" class="form-control" type="time" />
+        <span asp-validation-for="OpeningTime" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="ClosingTime" class="form-label fw-bold"></label>
+        <input asp-for="ClosingTime" class="form-control" type="time" />
+        <span asp-validation-for="ClosingTime" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-12">
+        <label asp-for="ImageUrl" class="form-label fw-bold"></label>
+        <input asp-for="ImageUrl" class="form-control" placeholder="https://image-url.com/photo.jpg" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-12">
+        <label asp-for="Address" class="form-label fw-bold"></label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-12">
+        <label asp-for="Description" class="form-label fw-bold"></label>
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+</div>

@@ -1,66 +1,57 @@
 ﻿@model List<RestaurantList.Models.Restaurant>
 
 @{
-    ViewData["Title"] = "Restaurant Index";
+    ViewData["Title"] = "Explore Restaurants";
 }
 
 <style>
-    /* Custom hover effect for cards */
     .restaurant-card {
-        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        border: none;
-        border-radius: 12px;
-        overflow: hidden;
+        transition: transform 0.2s;
+        border-radius: 15px;
     }
 
-    .restaurant-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.12) !important;
-    }
+        .restaurant-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+        }
 
-    .card-img-container {
-        height: 200px;
-        overflow: hidden;
-    }
-
-    .btn-action {
-        border-radius: 20px;
-        padding: 5px 15px;
-        font-size: 0.85rem;
+    .status-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
     }
 </style>
 
-<div class="container">
-    <div class="d-flex justify-content-between align-items-center my-5">
-        <h1 class="display-5 fw-bold text-primary">Explore Restaurants</h1>
-        <a asp-action="Create" class="btn btn-success shadow-sm px-4">
-            <i class="bi bi-plus-lg"></i> Add New Restaurant
-        </a>
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h1 class="display-4 fw-bold">Restaurants</h1>
+        <a asp-action="Create" class="btn btn-primary btn-lg rounded-pill shadow">Add New Restaurant</a>
     </div>
 
     <div class="row g-4">
         @foreach (var item in Model)
         {
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100 restaurant-card shadow-sm">
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 restaurant-card border-0 shadow-sm position-relative">
+                    <span class="badge @(item.IsOpenNow ? "bg-success" : "bg-danger") status-badge">
+                        @(item.IsOpenNow ? "Open Now" : "Closed")
+                    </span>
 
-                    <div class="card-img-container">
-                        <img src="@item.ImageUrl"
-                             class="card-img-top w-100 h-100"
-                             style="object-fit: cover;"
-                             alt="@item.Name" />
-                    </div>
+                    <img src="@item.ImageUrl" class="card-img-top" style="height: 200px; object-fit: cover;" alt="@item.Name">
 
-                    <div class="card-body text-center d-flex flex-column">
-                        <h5 class="card-title fw-bold mb-1">@item.Name</h5>
-                        <p class="card-text text-muted small mb-4">
-                            <i class="bi bi-geo-alt"></i> @item.Address
-                        </p>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title fw-bold mb-0">@item.Name</h5>
+                            <span class="text-warning"><i class="bi bi-star-fill"></i> @item.Rating</span>
+                        </div>
 
-                        <div class="mt-auto d-flex justify-content-center gap-2">
-                            <a class="btn btn-outline-info btn-action" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                            <a class="btn btn-outline-warning btn-action" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                            <a class="btn btn-outline-danger btn-action" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <p class="text-muted small mb-1"><i class="bi bi-tag"></i> @item.CuisineType • @item.PriceRange</p>
+                        <p class="text-muted small mb-3"><i class="bi bi-geo-alt"></i> @item.Address</p>
+
+                        <div class="d-flex gap-2">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-dark btn-sm flex-grow-1">View</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary btn-sm"><i class="bi bi-pencil"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></a>
                         </div>
                     </div>
                 </div>

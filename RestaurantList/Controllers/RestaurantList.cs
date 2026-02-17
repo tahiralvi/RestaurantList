@@ -103,7 +103,7 @@ namespace RestaurantList.Controllers
         // POST: RestaurantList/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ImageUrl,Address")] Restaurant restaurant)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ImageUrl,Address,Email,PhoneNumber,Description,CuisineType,Rating,OpeningTime,ClosingTime,IsOpenNow,PriceRange")] Restaurant restaurant)
         {
             if (id != restaurant.Id)
             {

@@ -1,35 +1,45 @@
 ﻿@model RestaurantList.Models.Restaurant
 
-<div class="container">
-    <h1>@Model.Name</h1>
-    <p>@Model.Address</p>
-    <img src="@Model.ImageUrl" style="width: 300px;" class="img-thumbnail mb-3" />
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h1 class="display-4 fw-bold">@Model.Name</h1>
+                <span class="badge bg-warning text-dark fs-5">★ @Model.Rating</span>
+            </div>
 
-    <h3>Menu</h3>
-    <ul class="list-group mb-4">
-        @foreach (var item in Model.RestaurantDishes)
-        {
-            <li class="list-group-item d-flex justify-content-between">
-                @item.Dish.Name <span>$@item.Dish.Price.ToString("C")</span>
-            </li>
-        }
-    </ul>
+            <p class="lead">@Model.Description</p>
+            <hr />
 
-    <hr />
-    <h4>Add Dish to Menu</h4>
-    <form asp-action="AddDish" method="post" class="row g-3">
-        <input type="hidden" name="restaurantId" value="@Model.Id" />
-        <div class="col-auto">
-            <select name="dishId" class="form-select">
-                <option value="">-- Select a Dish --</option>
-                @foreach (var dish in ViewBag.AvailableDishes)
+            <h3>Menu</h3>
+            <div class="list-group shadow-sm">
+                @foreach (var rd in Model.RestaurantDishes)
                 {
-                    <option value="@dish.Id">@dish.Name (@dish.Price)</option>
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0">@rd.Dish.Name</h6>
+                        </div>
+                        <span class="fw-bold">@rd.Dish.Price.ToString("C")</span>
+                    </div>
                 }
-            </select>
+            </div>
         </div>
-        <div class="col-auto">
-            <button type="submit" class="btn btn-primary">Add to Restaurant</button>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm mb-4">
+                <img src="@Model.ImageUrl" class="card-img-top" alt="@Model.Name">
+                <div class="card-body">
+                    <h5>Info & Hours</h5>
+                    <p class="mb-1"><strong>Cuisine:</strong> @Model.CuisineType</p>
+                    <p class="mb-1"><strong>Price:</strong> @Model.PriceRange</p>
+                    <p class="mb-1"><strong>Phone:</strong> @Model.PhoneNumber</p>
+                    <p class="mb-3 text-muted">@Model.Address</p>
+
+                    <div class="alert @(Model.IsOpenNow ? "alert-success" : "alert-danger") py-2">
+                        Hours: @Model.OpeningTime.ToString(@"hh\:mm") - @Model.ClosingTime.ToString(@"hh\:mm")
+                    </div>
+                </div>
+            </div>
         </div>
-    </form>
+    </div>
 </div>
