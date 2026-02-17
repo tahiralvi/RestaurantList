@@ -73,7 +73,7 @@ namespace RestaurantList.Controllers
         // POST: RestaurantList/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,ImageUrl,Address")] Restaurant restaurant)
+        public async Task<IActionResult> Create([Bind("Id,Name,ImageUrl,Address,Email,PhoneNumber,Description,CuisineType,Rating,OpeningTime,ClosingTime,IsOpenNow,PriceRange")] Restaurant restaurant)
         {
             if (ModelState.IsValid)
             {
