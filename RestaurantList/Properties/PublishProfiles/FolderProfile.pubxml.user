@@ -3,7 +3,18 @@
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>D:\Coding\RestaurantList\RestaurantList\bin\Release\net8.0\publish\</_PublishTargetUrl>
-    <History>True|2026-02-16T12:45:38.6217009Z||;True|2025-09-11T20:10:32.4407022+05:00||;</History>
+    <History>True|2026-02-22T11:48:47.7276045Z||;True|2026-02-16T17:45:38.6217009+05:00||;True|2025-09-11T20:10:32.4407022+05:00||;</History>
     <LastFailureDetails />
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
   </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnectionString">
+      <Value>Data Source=DESKTOP-INVM667%3bInitial Catalog=RestaurantList_Db%3bIntegrated Security=True%3bPooling=False%3bEncrypt=True%3bTrust Server Certificate=True</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="RestaurantList.Data.RestaurantListContext">
+      <Value>Data Source=DESKTOP-INVM667%3bInitial Catalog=RestaurantList_Db%3bIntegrated Security=True%3bPooling=False%3bEncrypt=True%3bTrust Server Certificate=True</Value>
+    </EFMigrations>
+  </ItemGroup>
 </Project>
