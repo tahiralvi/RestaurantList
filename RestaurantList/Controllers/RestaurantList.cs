@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RestaurantList.Data;
 using RestaurantList.Models;
+using Serilog;
 
 namespace RestaurantList.Controllers
 {
@@ -24,6 +25,7 @@ namespace RestaurantList.Controllers
                 r.Name.Contains(searchString));
                 return View(await restaurants.ToListAsync());
             }
+            Log.Information($"restaurants: {restaurants.Count()}");
             return View(await restaurants.ToListAsync());
         }
 

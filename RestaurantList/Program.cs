@@ -2,19 +2,33 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using RestaurantList.Data;
 using System.Globalization;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Serilog
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information() // Set default minimum logging level
+    .WriteTo.Console() // Write logs to the console
+    .WriteTo.File("Logs/RestaurantList-Logs.txt", 
+    rollingInterval: RollingInterval.Day,
+    rollOnFileSizeLimit: true) // Optional: write to a file
+    .CreateLogger();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<RestaurantListContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
+// Use Serilog for web hosting logging
+//builder.Host.UseSerilog();
+
 var app = builder.Build();
 
 // --- Global Culture Configuration ---
 var defaultCulture = new CultureInfo("en-PK");
 defaultCulture.NumberFormat.CurrencySymbol = "Rs."; // Sets the symbol specifically to Rs.
+
 
 var localizationOptions = new RequestLocalizationOptions
 {
