@@ -25,7 +25,7 @@ namespace RestaurantList.Controllers
                 r.Name.Contains(searchString));
                 return View(await restaurants.ToListAsync());
             }
-            Log.Information($"restaurants: {restaurants.Count()}");
+            Log.Information($"RestaurantList-->Index--> count of resturants: {restaurants.Count()}");
             return View(await restaurants.ToListAsync());
         }
 
@@ -47,6 +47,7 @@ namespace RestaurantList.Controllers
                 .Where(d => !assignedDishIds.Contains(d.Id))
                 .ToListAsync();
 
+            Log.Information($"RestaurantList-->Details of Resturant Id {id} and details are : {restaurant.ToString()}");
             return View(restaurant);
         }
 
