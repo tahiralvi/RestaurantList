@@ -19,8 +19,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<RestaurantListContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
-// Use Serilog for web hosting logging
-//builder.Host.UseSerilog();
 
 var app = builder.Build();
 
