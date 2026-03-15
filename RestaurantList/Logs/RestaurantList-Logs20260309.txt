@@ -1,0 +1,3 @@
+2026-03-09 12:22:15.014 +05:00 [INF] restaurants: 5
+2026-03-09 13:35:08.136 +05:00 [INF] RestaurantList-->Index--> count of resturants: 5
+2026-03-09 13:35:46.496 +05:00 [INF] RestaurantList-->Details of Resturant Id 1 and details are : RestaurantList.Models.Restaurant
