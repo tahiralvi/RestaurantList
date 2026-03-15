@@ -11,7 +11,7 @@ Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information() // Set default minimum logging level
     //.WriteTo.Console() // Write logs to the console
     //.WriteTo.File("Logs/RestaurantList-Logs.txt", rollingInterval: RollingInterval.Day, rollOnFileSizeLimit: true) // Optional: write to a file
-    .WriteTo.Seq("http://localhost:5341")
+    .WriteTo.Seq("http://localhost:5341") // save the log into the SEQ database
     .CreateLogger();
 
 // Add services to the container.
