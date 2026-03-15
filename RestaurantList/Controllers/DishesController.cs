@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RestaurantList.Data;
 using RestaurantList.Models;
+using Serilog;
 
 namespace RestaurantList.Controllers
 {
@@ -17,12 +18,14 @@ namespace RestaurantList.Controllers
         // GET: Dishes
         public async Task<IActionResult> Index()
         {
+            Log.Information($"DishesController-->Index");
             return View(await _context.Dishes.ToListAsync());
         }
 
         // GET: Dishes/Create
         public IActionResult Create()
         {
+            Log.Information($"DishesController-->Create");
             return View();
         }
 
@@ -33,6 +36,7 @@ namespace RestaurantList.Controllers
         {
             if (ModelState.IsValid)
             {
+                Log.Information($"DishesController-->Create: {dish.Name +" , "+ dish.Price }");
                 _context.Add(dish);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -43,9 +47,11 @@ namespace RestaurantList.Controllers
         // GET: Dishes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            Log.Information($"DishesController-->Edit: {id}");
             if (id == null) return NotFound();
 
             var dish = await _context.Dishes.FindAsync(id);
+            Log.Information($"DishesController-->Edit: {dish.Id + " , " + dish.Name +", "+ dish.Price}");
             if (dish == null) return NotFound();
 
             return View(dish);
